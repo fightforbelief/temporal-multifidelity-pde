@@ -1,0 +1,29 @@
+stage: smoke
+lineage_required: PDEBENCH_IC
+nu_hypothesis: epsilon_over_pi
+epsilon: 0.01
+length: 1.0
+T: 2.0
+dt_obs: 0.1
+nx: 128
+dt_hf: 0.002
+dt_mf: 0.004
+dt_lf: 0.008
+n_trajectories: 24
+split_seed: 20261023
+horizons: [1, 4, 10]
+rel_floor: 1.0e-6
+divergence_rel: 5.0
+modes: 12
+width: 32
+blocks: 4
+train_steps: 60
+batch_size: 16
+lr: 0.001
+seeds: [0]
+strategies: [HF_ONLY, MIXED_CONDITIONED, LF_PRETRAIN_HF_FINETUNE, POD_DELTA_RIDGE]
+pod_ranks: [4, 8]
+max_fit_seconds: 600
+open_test: false
+hf_cost_fraction: 0.5
+cost_repeats: 3

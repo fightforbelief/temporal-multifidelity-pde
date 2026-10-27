@@ -1,0 +1,34 @@
+stage: confirmatory
+lineage_required: PDEBENCH_IC
+nu_hypothesis: epsilon_over_pi
+epsilon: 0.01
+nu: 0.003183098861837907
+length: 1.0
+T: 2.0
+dt_obs: 0.01
+nx: 1024
+dt_hf: 3.7313432835820896e-05
+dt_lf: 7.462686567164179e-05
+dt_lf_rejected: 0.00014925373134328358
+rejected_status: UNSTABLE_CFL
+n_trajectories: 48
+split_seed: 20261023
+horizons: [10, 40, 100, 200]
+rel_floor: 1.0e-6
+divergence_rel: 5.0
+modes: 12
+width: 32
+blocks: 4
+train_steps: 2000
+batch_size: 8
+lr: 0.001
+seeds: [0, 1, 2]
+strategies: [HF_ONLY, MIXED_CONDITIONED, LF_PRETRAIN_HF_FINETUNE, POD_DELTA_RIDGE]
+pod_ranks: [4, 8, 16]
+max_fit_seconds: 1500
+open_test: true
+requires_frozen_protocol: true
+hf_cost_fraction: 0.5
+budget_fractions: [0.25, 0.5, 1.0]
+cost_repeats: 1
+amendment: "Native nx=1024 and dt_obs=0.01 replace the earlier nx=128 plan. The 4x step is UNSTABLE_CFL on calibration trajectories 0-3, so the coarse fidelity is the stable 2x step. Smoke on train/val only (80 Adam steps, seed 0, budget fraction 1) took under 2 seconds per fit and left neural one-step validation error worse than persistence. Confirmatory fits are therefore locked at 2000 steps before any test read. Three budget fractions, four learned strategies, and three seeds are the full matrix."
